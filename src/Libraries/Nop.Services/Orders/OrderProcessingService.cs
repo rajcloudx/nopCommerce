@@ -3224,10 +3224,11 @@ namespace Nop.Services.Orders
                 var product = await _productService.GetProductByIdAsync(orderItem.ProductId);
 
                 await _shoppingCartService.AddToCartAsync(customer, product,
-                    ShoppingCartType.ShoppingCart, order.StoreId,
-                    orderItem.AttributesXml, orderItem.UnitPriceExclTax,
-                    orderItem.RentalStartDateUtc, orderItem.RentalEndDateUtc,
-                    orderItem.Quantity, false);
+                     ShoppingCartType.ShoppingCart, order.StoreId,
+                     orderItem.AttributesXml, _taxSettings.PricesIncludeTax ?
+                     orderItem.UnitPriceInclTax : orderItem.UnitPriceExclTax,
+                     orderItem.RentalStartDateUtc, orderItem.RentalEndDateUtc,
+                     orderItem.Quantity, false);
             }
 
             //set checkout attributes
