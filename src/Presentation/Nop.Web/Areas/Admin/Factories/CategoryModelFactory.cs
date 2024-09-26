@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Nop.Core;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Discounts;
@@ -34,6 +35,7 @@ public partial class CategoryModelFactory : ICategoryModelFactory
     protected readonly IProductService _productService;
     protected readonly IStoreMappingSupportedModelFactory _storeMappingSupportedModelFactory;
     protected readonly IUrlRecordService _urlRecordService;
+    protected readonly IWorkContext _workContext;
 
     #endregion
 
@@ -50,7 +52,8 @@ public partial class CategoryModelFactory : ICategoryModelFactory
         ILocalizedModelFactory localizedModelFactory,
         IProductService productService,
         IStoreMappingSupportedModelFactory storeMappingSupportedModelFactory,
-        IUrlRecordService urlRecordService)
+        IUrlRecordService urlRecordService,
+        IWorkContext workContext)
     {
         _catalogSettings = catalogSettings;
         _currencySettings = currencySettings;
@@ -64,6 +67,7 @@ public partial class CategoryModelFactory : ICategoryModelFactory
         _productService = productService;
         _storeMappingSupportedModelFactory = storeMappingSupportedModelFactory;
         _urlRecordService = urlRecordService;
+        _workContext = workContext;
     }
 
     #endregion

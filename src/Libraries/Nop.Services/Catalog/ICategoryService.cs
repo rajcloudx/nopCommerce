@@ -11,6 +11,13 @@ namespace Nop.Services.Catalog;
 public partial interface ICategoryService
 {
     /// <summary>
+    /// Check the possibility of adding products to the category for the current vendor
+    /// </summary>
+    /// <param name="categoryId">Category identifier</param>
+    /// <returns>A task that represents the asynchronous operation</returns>
+    Task<bool> CanVendorAddProductsAsync(int categoryId);
+
+    /// <summary>
     /// Clean up category references for a specified discount
     /// </summary>
     /// <param name="discount">Discount</param>

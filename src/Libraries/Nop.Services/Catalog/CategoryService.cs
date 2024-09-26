@@ -161,6 +161,26 @@ public partial class CategoryService : ICategoryService
     #region Methods
 
     /// <summary>
+    /// Check the possibility of adding products to the category for the current vendor
+    /// </summary>
+    /// <param name="categoryId">Category identifier</param>
+    /// <returns>A task that represents the asynchronous operation</returns>
+    public virtual async Task<bool> CanVendorAddProductsAsync(int categoryId)
+    {
+        if (_workContext.GetCurrentVendorAsync() is null) // check vendors only
+            return true;
+
+        var category = await GetCategoryByIdAsync(categoryId);
+        if (category.RestrictFromVendors)
+            return false;
+
+        var breadcrumb = await GetCategoryBreadCrumbAsync(category, showHidden: true);
+
+        return !breadcrumb.Any(c => c.RestrictFromVendors);
+
+    }
+
+    /// <summary>
     /// Clean up category references for a  specified discount
     /// </summary>
     /// <param name="discount">Discount</param>
